@@ -20,9 +20,9 @@ export default function SelectWithLabel<T> ({ label, value, handleChange, childr
     const classes = useStyles()
 
     return (
-        <FormControl className={classes.formControl} variant='outlined'>
-            <InputLabel>{label}</InputLabel>
-            <Select value={value} onChange={e => handleChange(e.target.value as T)} label={label}>
+        <FormControl variant='outlined' className={classes.formControl}>
+            <InputLabel htmlFor='page-size-select'>{label}</InputLabel>
+            <Select id='page-size-select' value={value} onChange={e => handleChange(e.target.value as T)} label={label}>
                 {children}
             </Select>
         </FormControl>

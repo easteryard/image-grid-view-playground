@@ -21,7 +21,7 @@ interface IProps {
 
 const pageSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-export default function GridView ({}: IProps) {
+export default function Overview ({}: IProps) {
     const classes = useStyles()
     const [search, setSearch] = useState('')
     const [page, setPage] = useState(0)
@@ -43,16 +43,17 @@ export default function GridView ({}: IProps) {
     }
 
     return (
-        <Grid>
-            <Typography variant='h4'>Data Grid Page</Typography>
+        <>
+            <Typography variant='h4'>Image Grid Page</Typography>
             <Grid container className={classes.optionsGrid}>
-                <TextField label='Search' value={search} onChange={e => handleSearch(e.target.value)} variant='outlined' className={classes.searchField} />
+                <TextField label='Search' value={search} onChange={e => handleSearch(e.target.value)} variant='outlined'
+                           className={classes.searchField} />
                 <SelectWithLabel label='Page size' value={pageSize} handleChange={handlePageSizeChange}>
                     {pageSizes.map((size, index) => <MenuItem key={index} value={size}>{size}</MenuItem>)}
                 </SelectWithLabel>
             </Grid>
             <GridViewPaginated data={gridViewData} page={page} onPageChange={handlePageChange}
                                totalPages={totalPages} />
-        </Grid>
+        </>
     )
 }
