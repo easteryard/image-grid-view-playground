@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, GridList, GridListTile, GridListTileBar, Typography } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 
 import { IGridData } from './provider/GridDataProvider'
-import ImageSlider from './ImageSlider'
+import ImageModal from './ImageModal'
 
 const useStyles = makeStyles(theme => ({
     gridListTileBar: {
@@ -25,9 +25,19 @@ interface IProps {
 
 export default function GridViewPaginated ({ data, page, onPageChange, totalPages }: IProps) {
     const classes = useStyles()
+    const [selectedImageIdx, setSelectedImageIdx] = useState<number | undefined>(undefined)
+console.log('sel: ', selectedImageIdx)
+    function handleAction (key: string, imageIdx?: number) {
+        console.log('Called by key: ', key)
+        console.log('imageIdx: ', imageIdx)
+        const keys = ['Enter', ' ', 'Escape', 'click']
+        if (keys.includes(key)) {
+            setSelectedImageIdx(imageIdx)
+        }
+    }
 
-    function handleAction (key: string) {
-        if (key === 'Enter' || key === ' ' || key === 'click') console.log('Called by key: ', key)
+    function getImages () {
+        return data.map(element => element.imagePath)
     }
 
     return (
@@ -36,8 +46,8 @@ export default function GridViewPaginated ({ data, page, onPageChange, totalPage
                 <>
                     <GridList cellHeight={200} cols={3}>
                         {data.map((tile, index) => (
-                            <GridListTile key={index} onClick={e => handleAction(e.type)}
-                                          onKeyPress={e => handleAction(e.key)} tabIndex={0}>
+                            <GridListTile key={index} onClick={e => handleAction(e.type, index)}
+                                          onKeyPress={e => handleAction(e.key, index)} tabIndex={0}>
                                 <img src={tile.imagePath} alt={tile.title} />
                                 <GridListTileBar title={tile.title} aria-hidden classes={{ root: classes.gridListTileBar }} />
                             </GridListTile>
@@ -45,7 +55,7 @@ export default function GridViewPaginated ({ data, page, onPageChange, totalPage
                     </GridList>
                     <Pagination page={page + 1} onChange={(event, page) => onPageChange(page - 1)}
                                 count={totalPages} className={classes.pagination} />
-                    <ImageSlider images={data} />
+                    <ImageModal images={getImages()} initialImageIdx={selectedImageIdx} onClose={handleAction} />
                 </>
             )}
         </Grid>
