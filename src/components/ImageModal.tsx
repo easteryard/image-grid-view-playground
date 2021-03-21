@@ -67,16 +67,16 @@ export default function FullscreenImageModal ({ image, selectedIndex, isNextDisa
     return image && selectedIndex !== undefined ? (
         <Grid container justify='center' alignItems='center' className={classes.outerGrid}>
             <IconButton onClick={e => onClose(e.type)} onKeyDown={e => onClose(e.key)} tabIndex={0}
-                        className={classes.closeIconButton}>
+                        aria-label='Close image' className={classes.closeIconButton}>
                 <CloseIcon fontSize='large' className={classes.closeIcon} />
             </IconButton>
             <IconButton onClick={() => handleChange(selectedIndex - 1)} disabled={selectedIndex === 0}
-                        className={classNames(classes.arrowIconButton, classes.leftArrow)}>
+                        aria-label='Previous image' className={classNames(classes.arrowIconButton, classes.leftArrow)}>
                 <LeftArrowIcon fontSize='large' />
             </IconButton>
             <img src={image.imagePath} alt={image.title} className={classes.image} />
             <IconButton onClick={() => handleChange(selectedIndex + 1)} disabled={isNextDisabled}
-                        className={classNames(classes.arrowIconButton, classes.rightArrow)}>
+                        aria-label='Next image' className={classNames(classes.arrowIconButton, classes.rightArrow)}>
                 <RightArrowIcon fontSize='large' />
             </IconButton>
         </Grid>
