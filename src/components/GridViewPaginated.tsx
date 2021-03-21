@@ -76,7 +76,7 @@ export default function GridViewPaginated ({ data, page, onPageChange, totalPage
                         ))}
                     </GridList>
                     <Pagination page={page + 1} onChange={(event, page) => onPageChange(page - 1)}
-                                count={totalPages} className={classes.pagination} />
+                                count={totalPages} color='primary' className={classes.pagination} />
                     <ImageModal image={getImage()} selectedIndex={selectedImageIdx}
                                 isNextDisabled={selectedImageIdx === data.length - 1} handleChange={changeImage}
                                 onClose={handleAction} />
