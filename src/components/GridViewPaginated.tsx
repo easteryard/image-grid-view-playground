@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, GridList, GridListTile, GridListTileBar, Typography } from '@material-ui/core'
@@ -30,6 +30,22 @@ interface IProps {
 export default function GridViewPaginated ({ data, page, onPageChange, totalPages }: IProps) {
     const classes = useStyles()
     const [selectedImageIdx, setSelectedImageIdx] = useState<number | undefined>(undefined)
+    const [noOfColumns, setNoOfColumns] = useState(getNoOfColumns())
+
+    const handleScreenSize = useCallback(() => {
+        setNoOfColumns(getNoOfColumns())
+    }, [])
+
+    function getNoOfColumns () {
+        if (window.innerWidth < 750) return 1
+        if (window.innerWidth < 1100) return 2
+        return 3
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', handleScreenSize)
+        return () => window.removeEventListener('resize', handleScreenSize)
+    }, [handleScreenSize])
 
     function handleAction (key: string, imageIdx?: number) {
         const keys = ['Enter', ' ', 'Escape', 'click']
@@ -50,7 +66,7 @@ export default function GridViewPaginated ({ data, page, onPageChange, totalPage
         <Grid>
             {data.length < 1 ? <Typography variant='h5' role='alert'>No results found</Typography> : (
                 <>
-                    <GridList cellHeight={200} cols={3} className={classes.gridList}>
+                    <GridList cellHeight={300} cols={noOfColumns} className={classes.gridList}>
                         {data.map((tile, index) => (
                             <GridListTile key={index} onClick={e => handleAction(e.type, index)}
                                           onKeyPress={e => handleAction(e.key, index)} tabIndex={0}>

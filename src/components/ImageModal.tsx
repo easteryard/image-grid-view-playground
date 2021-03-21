@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
         right: 0
     },
     image: {
+        height: 'fit-content',
         maxHeight: '80vh',
         maxWidth: '90vw'
     }
@@ -63,7 +64,7 @@ export default function FullscreenImageModal ({ image, selectedIndex, isNextDisa
     }, [handleKeyDown])
 
     return image && selectedIndex !== undefined ? (
-        <Grid container justify='center' className={classes.outerGrid}>
+        <Grid container justify='center' alignItems='center' className={classes.outerGrid}>
             <IconButton onClick={e => onClose(e.type)} onKeyDown={e => onClose(e.key)} tabIndex={0}
                         className={classes.closeIconButton}>
                 <CloseIcon fontSize='large' className={classes.closeIcon} />

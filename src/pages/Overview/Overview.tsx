@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
-import useGridData from '../hooks/useGridData'
+import useGridData from '../../hooks/useGridData'
 import { Container, Grid, MenuItem, TextField, Typography } from '@material-ui/core'
-import GridViewPaginated from '../components/GridViewPaginated'
-import SelectWithLabel from '../components/SelectWithLabel'
+import GridViewPaginated from '../../components/GridViewPaginated'
+import SelectWithLabel from '../../components/SelectWithLabel'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -19,12 +19,9 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-interface IProps {
-}
-
 const pageSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-export default function Overview ({}: IProps) {
+export default function Overview () {
     const classes = useStyles()
     const [search, setSearch] = useState('')
     const [page, setPage] = useState(0)

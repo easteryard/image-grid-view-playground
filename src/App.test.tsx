@@ -1,9 +1,15 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import App from './App'
+import GridDataProvider from './components/provider/GridDataProvider'
+import Overview from './pages/Overview/Overview'
 
-test('renders learn react link', () => {
+test('App should render GridDataProvider with Overview as child', () => {
     render(<App />)
-    const linkElement = screen.getByText(/learn react/i)
-    expect(linkElement).toBeInTheDocument()
+    const overviewWithContext = render(
+        <GridDataProvider>
+            <Overview />
+        </GridDataProvider>
+    )
+    expect(overviewWithContext.baseElement).toBeInTheDocument()
 })
