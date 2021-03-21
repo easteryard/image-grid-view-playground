@@ -1,38 +1,117 @@
-import React from 'react'
+import React, { createRef, useCallback, useEffect } from 'react'
+import classNames from 'classnames'
 
 import { makeStyles } from '@material-ui/core/styles'
-import ImageSlides from 'react-imageslides'
+import { Grid, IconButton } from '@material-ui/core'
+import { IGridData } from './provider/GridDataProvider'
+import { Close as CloseIcon, ChevronLeft as LeftArrowIcon, ChevronRight as RightArrowIcon } from '@material-ui/icons'
 
-import { Close as CloseIcon } from '@material-ui/icons'
-import { IconButton } from '@material-ui/core'
-
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
+    outerGrid: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        height: '100vh',
+        paddingTop: theme.spacing(10),
+        backgroundColor: 'rgba(0, 0, 0, 0.95)'
+    },
+    closeIconButton: {
+        position: 'absolute',
+        top: 0,
+        left: 5
+    },
     closeIcon: {
         color: 'white'
+    },
+    arrowIconButton: {
+        position: 'absolute',
+        top: '50%',
+        color: 'white'
+    },
+    leftArrow: {
+        left: 0
+    },
+    rightArrow: {
+        right: 0
+    },
+    image: {
+        maxHeight: '80vh',
+        maxWidth: '90vw'
     }
 }))
 
 interface IProps {
-    images: string[]
-    initialImageIdx?: number
+    image?: IGridData
+    selectedIndex?: number
+    isNextDisabled: boolean
+    handleChange: (index: number) => void
     onClose: (key: string) => void
 }
 
-export default function ImageModal ({ images, initialImageIdx, onClose }: IProps) {
+export default function FullscreenImageModal ({ image, selectedIndex, isNextDisabled, handleChange, onClose }: IProps): JSX.Element | null {
     const classes = useStyles()
 
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') onClose(e.key)
-    })
+    const handleKeyDown = useCallback((event: any) => {
+        if (event.key === 'Escape') onClose(event.key)
+        else if (event.key === 'ArrowLeft' && selectedIndex !== undefined) handleChange(selectedIndex - 1)
+        else if (event.key === 'ArrowRight' && selectedIndex !== undefined) handleChange(selectedIndex + 1)
+    }, [handleChange, onClose, selectedIndex])
 
-    return (
-        <div onKeyDown={e => onClose(e.key)}>
-            <ImageSlides images={images} isOpen={initialImageIdx !== undefined} index={initialImageIdx && initialImageIdx + 1} showPageButton
-                         onClose={() => onClose('Escape')} addon={() => (
-                             <IconButton onClick={e => onClose(e.type)} onKeyDown={e => onClose(e.key)} tabIndex={0}>
-                                 <CloseIcon fontSize='large' className={classes.closeIcon} />
-                             </IconButton>
-                         )} />
-        </div>
-    )
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [handleKeyDown])
+
+    return image && selectedIndex !== undefined ? (
+        <Grid container justify='center' className={classes.outerGrid}>
+            <IconButton onClick={e => onClose(e.type)} onKeyDown={e => onClose(e.key)} tabIndex={0}
+                        className={classes.closeIconButton}>
+                <CloseIcon fontSize='large' className={classes.closeIcon} />
+            </IconButton>
+            <IconButton onClick={() => handleChange(selectedIndex - 1)} disabled={selectedIndex === 0}
+                        className={classNames(classes.arrowIconButton, classes.leftArrow)}>
+                <LeftArrowIcon fontSize='large' />
+            </IconButton>
+            <img src={image.imagePath} alt={image.title} className={classes.image} />
+            <IconButton onClick={() => handleChange(selectedIndex + 1)} disabled={isNextDisabled}
+                        className={classNames(classes.arrowIconButton, classes.rightArrow)}>
+                <RightArrowIcon fontSize='large' />
+            </IconButton>
+        </Grid>
+    ) : null
 }
+
+
+
+// interface IProps {
+//     images?: IGridData[]
+//     selectedIndex?: number
+//     onClose: (key: string) => void
+// }
+//
+// export default function FullscreenImageModal ({ images, selectedIndex, handleChange, onClose }: IProps): JSX.Element | null {
+//     const classes = useStyles()
+//
+//     document.addEventListener('keydown', e => {
+//         if (e.key === 'Escape') onClose(e.key)
+//     })
+//
+//     function getImage() {
+//         if (images && images?.length > 0 && selectedIndex) return images[selectedIndex]
+//     }
+//
+//     return getImage() ? (
+//         <Grid container justify='center' className={classes.outerGrid}>
+//             <IconButton onClick={e => onClose(e.type)} onKeyDown={e => onClose(e.key)} tabIndex={0} className={classes.closeIconButton}>
+//                 <CloseIcon fontSize='large' className={classes.closeIcon} />
+//             </IconButton>
+//             <IconButton onClick={() => handleChange('LEFT')} className={classNames(classes.arrowIconButton, classes.leftArrow)}>
+//                 <LeftArrowIcon fontSize='large' />
+//             </IconButton>
+//             <img src={getImage()?.imagePath} alt={getImage()?.title} className={classes.image} />
+//             <IconButton onClick={() => handleChange('LEFT')} className={classNames(classes.arrowIconButton, classes.rightArrow)}>
+//                 <RightArrowIcon fontSize='large' />
+//             </IconButton>
+//         </Grid>
+//     ) : null
+// }

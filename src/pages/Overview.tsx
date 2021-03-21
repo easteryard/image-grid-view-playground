@@ -2,11 +2,14 @@ import React, { useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import useGridData from '../hooks/useGridData'
-import { Grid, MenuItem, TextField, Typography } from '@material-ui/core'
+import { Container, Grid, MenuItem, TextField, Typography } from '@material-ui/core'
 import GridViewPaginated from '../components/GridViewPaginated'
 import SelectWithLabel from '../components/SelectWithLabel'
 
 const useStyles = makeStyles(theme => ({
+    container: {
+        marginTop: theme.spacing(2)
+    },
     optionsGrid: {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2)
@@ -43,7 +46,7 @@ export default function Overview ({}: IProps) {
     }
 
     return (
-        <>
+        <Container className={classes.container}>
             <Typography variant='h4'>Image Grid Page</Typography>
             <Grid container className={classes.optionsGrid}>
                 <TextField label='Search' value={search} onChange={e => handleSearch(e.target.value)} variant='outlined'
@@ -54,6 +57,6 @@ export default function Overview ({}: IProps) {
             </Grid>
             <GridViewPaginated data={gridViewData} page={page} onPageChange={handlePageChange}
                                totalPages={totalPages} />
-        </>
+        </Container>
     )
 }
