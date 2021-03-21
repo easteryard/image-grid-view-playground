@@ -80,38 +80,3 @@ export default function FullscreenImageModal ({ image, selectedIndex, isNextDisa
         </Grid>
     ) : null
 }
-
-
-
-// interface IProps {
-//     images?: IGridData[]
-//     selectedIndex?: number
-//     onClose: (key: string) => void
-// }
-//
-// export default function FullscreenImageModal ({ images, selectedIndex, handleChange, onClose }: IProps): JSX.Element | null {
-//     const classes = useStyles()
-//
-//     document.addEventListener('keydown', e => {
-//         if (e.key === 'Escape') onClose(e.key)
-//     })
-//
-//     function getImage() {
-//         if (images && images?.length > 0 && selectedIndex) return images[selectedIndex]
-//     }
-//
-//     return getImage() ? (
-//         <Grid container justify='center' className={classes.outerGrid}>
-//             <IconButton onClick={e => onClose(e.type)} onKeyDown={e => onClose(e.key)} tabIndex={0} className={classes.closeIconButton}>
-//                 <CloseIcon fontSize='large' className={classes.closeIcon} />
-//             </IconButton>
-//             <IconButton onClick={() => handleChange('LEFT')} className={classNames(classes.arrowIconButton, classes.leftArrow)}>
-//                 <LeftArrowIcon fontSize='large' />
-//             </IconButton>
-//             <img src={getImage()?.imagePath} alt={getImage()?.title} className={classes.image} />
-//             <IconButton onClick={() => handleChange('LEFT')} className={classNames(classes.arrowIconButton, classes.rightArrow)}>
-//                 <RightArrowIcon fontSize='large' />
-//             </IconButton>
-//         </Grid>
-//     ) : null
-// }
