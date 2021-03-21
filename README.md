@@ -3,11 +3,12 @@
 See a paginated data grid of images.
 
 Features:
+- Custom paginated grid view of items.
 - Search items and get paginated data.
 - Select the page size.
 - Click the items for a full screen view of the image.
 - A11y is included:
-    - Mouse and keyboard.
+    - Mouse and keyboard friendly.
     - Screen reader friendly.
 - Includes tests for functionality and UI.
 
