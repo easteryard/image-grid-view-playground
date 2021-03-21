@@ -21,8 +21,9 @@ export default function SelectWithLabel<T> ({ label, value, handleChange, childr
 
     return (
         <FormControl variant='outlined' className={classes.formControl}>
-            <InputLabel htmlFor='page-size-select'>{label}</InputLabel>
-            <Select id='page-size-select' value={value} onChange={e => handleChange(e.target.value as T)} label={label}>
+            <InputLabel>{label}</InputLabel>
+            <Select value={value} onChange={e => handleChange(e.target.value as T)} label={label}
+                    SelectDisplayProps={{ 'aria-label': 'page size' }}>
                 {children}
             </Select>
         </FormControl>

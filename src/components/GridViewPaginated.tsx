@@ -66,7 +66,7 @@ export default function GridViewPaginated ({ data, page, onPageChange, totalPage
         <Grid>
             {data.length < 1 ? <Typography variant='h5' role='alert'>No results found</Typography> : (
                 <>
-                    <GridList cellHeight={300} cols={noOfColumns} className={classes.gridList}>
+                    <GridList cellHeight={300} cols={noOfColumns} role='list' aria-label='List of images' className={classes.gridList}>
                         {data.map((tile, index) => (
                             <GridListTile key={index} onClick={e => handleAction(e.type, index)}
                                           onKeyPress={e => handleAction(e.key, index)} tabIndex={0}>
