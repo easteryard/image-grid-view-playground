@@ -1,14 +1,15 @@
-import React, { createRef, useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import classNames from 'classnames'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, IconButton } from '@material-ui/core'
-import { IGridData } from './provider/GridDataProvider'
 import { Close as CloseIcon, ChevronLeft as LeftArrowIcon, ChevronRight as RightArrowIcon } from '@material-ui/icons'
+
+import { IGridData } from './provider/GridDataProvider'
 
 const useStyles = makeStyles(theme => ({
     outerGrid: {
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         left: 0,
         height: '100vh',
