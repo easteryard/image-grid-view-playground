@@ -1,4 +1,4 @@
-export default [
+const gridData = [
     {
         title: 'Level up',
         description: 'Level up',
@@ -100,3 +100,5 @@ export default [
         imagePath: 'https://images.unsplash.com/photo-1582478192200-b4bd08b40096?ixlib=rb-1.2.1&amp;ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;auto=format&amp;fit=crop&amp;w=1790&amp;q=80'
     }
 ]
+
+export default gridData
