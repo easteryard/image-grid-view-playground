@@ -1,8 +1,11 @@
 # The gist
 
-See a paginated data grid of images.
+A paginated data grid of images.
 
-Features:
+The web application is deployed and can be accessed from here:  
+https://image-grid-view-playground.vercel.app/
+
+### Features:
 - Custom paginated grid view of items.
 - Search items and get paginated data.
 - Select the page size.
@@ -15,7 +18,7 @@ Features:
 ### Requirements
 
 You need to have [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
-or [npm](https://www.npmjs.com/get-npm) installed on your machine.
+or [npm](https://www.npmjs.com/get-npm) installed on your machine to run the project.
 
 ### How to run the project
 
